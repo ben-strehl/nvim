@@ -35,3 +35,13 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 lsp.setup()
+
+-- Shows errors in-line
+vim.diagnostic.config({
+    virtual_text = true,
+    -- signs = true,
+    -- update_in_insert = false,
+    -- underline = true,
+    -- severity_sort = false,
+    -- float = true,
+})
