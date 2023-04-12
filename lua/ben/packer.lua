@@ -9,9 +9,7 @@ return require('packer').startup(function(use)
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
 
-	use("ellisonleao/gruvbox.nvim")
-
-	use("nvim-treesitter/nvim-treesitter", {run = ':TSUpdate'})
+    use("sainnhe/gruvbox-material")
 
 	use("nvim-treesitter/playground")
 
@@ -47,5 +45,8 @@ return require('packer').startup(function(use)
 	}
 
     use("vim-airline/vim-airline")
+
     use("vim-airline/vim-airline-themes")
+
+	use("nvim-treesitter/nvim-treesitter", {run = ':TSUpdate'})
 end)
