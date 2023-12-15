@@ -31,7 +31,7 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
 	vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
 	vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-	vim.keymap.set("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+	-- vim.keymap.set("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
 lsp.setup()
@@ -45,3 +45,24 @@ vim.diagnostic.config({
     -- severity_sort = false,
     -- float = true,
 })
+
+require('lspconfig').texlab.setup{
+    cmd = {"texlab"},
+    filetypes = {"tex", "bib"},
+    settings = {
+        texlab = {
+            rootDirectory = nil,
+            build = { 
+                executable = 'pdflatex',
+                args = {'%f'},
+                forwardSearchAfter = true,
+                onSave = true
+            },
+            forwardSearch = {
+                executable = "zathura",
+                args = {"--synctex-forward", "%l:1:%f", "%p"}
+            }
+        }
+    }
+}
+
