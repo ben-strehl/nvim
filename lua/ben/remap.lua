@@ -47,3 +47,15 @@ vim.keymap.set("n", "<leader>>", "<C-w>>")
 vim.keymap.set("n", "<leader><", "<C-w><")
 vim.keymap.set("n", "<leader>-", "<C-w>-")
 vim.keymap.set("n", "<leader>+", "<C-w>+")
+
+-- Terminal in nvim
+if vim.fn.has('win32') then
+    vim.keymap.set("n", "<leader>t", function ()
+       vim.cmd("vsplit term://cmd")
+    end)
+else
+    vim.keymap.set("n", "<leader>t", function ()
+       vim.cmd("vsplit term://bash") 
+    end)
+end
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
