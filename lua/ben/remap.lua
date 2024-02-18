@@ -49,13 +49,13 @@ vim.keymap.set("n", "<leader>-", "<C-w>-")
 vim.keymap.set("n", "<leader>+", "<C-w>+")
 
 -- Terminal in nvim
-if vim.fn.has('win32') then
+if vim.fn.has('unix') then
     vim.keymap.set("n", "<leader>t", function ()
-       vim.cmd("vsplit term://cmd")
+       vim.cmd("vsplit term://bash")
     end)
 else
     vim.keymap.set("n", "<leader>t", function ()
-       vim.cmd("vsplit term://bash") 
+       vim.cmd("vsplit term://cmd") 
     end)
 end
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
