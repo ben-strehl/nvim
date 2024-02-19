@@ -49,7 +49,7 @@ vim.keymap.set("n", "<leader>-", "<C-w>-")
 vim.keymap.set("n", "<leader>+", "<C-w>+")
 
 -- Terminal in nvim
-if vim.fn.has('unix') then
+if vim.fn.has('linux') == 1 then
     vim.keymap.set("n", "<leader>t", function ()
        vim.cmd("vsplit term://bash")
     end)
