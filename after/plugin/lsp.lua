@@ -47,6 +47,7 @@ vim.diagnostic.config({
     -- float = true,
 })
 
+-- Recompile LaTeX on save
 require('lspconfig').texlab.setup{
     cmd = {"texlab"},
     filetypes = {"tex", "bib"},

@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+-- TODO(ben): 
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
@@ -47,6 +48,16 @@ vim.keymap.set("n", "<leader>>", "<C-w>>")
 vim.keymap.set("n", "<leader><", "<C-w><")
 vim.keymap.set("n", "<leader>-", "<C-w>-")
 vim.keymap.set("n", "<leader>+", "<C-w>+")
+
+-- Quick notes and todos
+if vim.bo.filetype == "lua" then
+    vim.keymap.set("n", "<leader>n", "O-- NOTE(ben):<Esc>A<Space>")
+    vim.keymap.set("n", "<leader>m", "O-- TODO(ben):<Esc>A<Space>")
+else
+    vim.keymap.set("n", "<leader>n", 'O// NOTE(ben):<Esc>A<Space>')
+    vim.keymap.set("n", "<leader>m", 'O// TODO(ben):<Esc>A<Space>')
+end
+
 
 -- Terminal in nvim
 if vim.fn.has('linux') == 1 then
