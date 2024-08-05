@@ -32,3 +32,11 @@ vim.opt.updatetime = 50
 
 -- Split to the right
 vim.opt.splitright = true
+
+-- Remove line numbers from terminal buffs
+vim.api.nvim_create_autocmd("TermOpen", {
+    callback = function()
+       vim.cmd("set nonu")
+       vim.cmd("set nornu")
+    end
+})
