@@ -70,3 +70,22 @@ else
     end)
 end
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+-- Run build command
+vim.keymap.set({'n', 'v'}, "<leader>b",function ()
+    local enter_code = vim.api.nvim_replace_termcodes("<CR>", false, false, true)
+    local buf = vim.api.nvim_create_buf(false, false) + 1
+    vim.cmd.vsplit()
+    vim.cmd("vertical resize 70")
+    vim.cmd("terminal")
+    vim.cmd("setlocal nonumber norelativenumber nobuflisted")
+    vim.cmd("bprev")
+    vim.cmd.b(buf)
+    vim.cmd("startinsert!")
+    if vim.fn.has('linux') == 1 then
+        vim.api.nvim_feedkeys("./build.sh"
+            .. enter_code, 't', true)
+    else
+        vim.api.nvim_feedkeys("build"
+            .. enter_code, 't', true)
+    end
+end)
