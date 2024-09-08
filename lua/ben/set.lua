@@ -40,3 +40,29 @@ vim.api.nvim_create_autocmd("TermOpen", {
        vim.cmd("set nornu")
     end
 })
+
+-- Set up custom highlights
+vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+        -- Note
+        vim.api.nvim_command('highlight Note guibg=green gui=bold ctermbg=green cterm=bold')
+        vim.api.nvim_command('syntax clear Note')
+        vim.api.nvim_command('syntax match Note "NOTE" contained')
+
+        -- Todo
+        vim.api.nvim_command('highlight Todo guibg=red gui=bold ctermbg=red cterm=bold')
+        vim.api.nvim_command('syntax clear Todo')
+        vim.api.nvim_command('syntax match Todo "TODO" contained')
+
+        -- Important
+        vim.api.nvim_command('highlight Important guibg=yellow gui=bold ctermbg=yellow cterm=bold')
+        vim.api.nvim_command('syntax clear Important')
+        vim.api.nvim_command('syntax match Important "IMPORTANT" contained')
+
+        -- Only match in comments
+        vim.api.nvim_command('syntax match Comment "'..'//.*'..'" contains=Note,Todo,Important')
+        vim.api.nvim_command('syntax match Comment "'..'/\\*.*'..'" contains=Note,Todo,Important')
+        vim.api.nvim_command('syntax match Comment "'..'--.*'..'" contains=Note,Todo,Important')
+        vim.api.nvim_command('syntax match Comment "'..'#.*'..'" contains=Note,Todo,Important')
+    end
+})
