@@ -20,6 +20,22 @@ lsp.set_preferences({
 	sign_icons = {}
 })
 
+-- clang-format on save
+local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
+local lsp_format_on_save = function(bufnr)
+    vim.api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
+    vim.api.nvim_create_autocmd('BufWritePre', {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+            vim.lsp.buf.format()
+            filter = function(client)
+                return client.name == "clangd"
+            end
+        end,
+    })
+end
+
 lsp.on_attach(function(client, bufnr)
 	local opts = {buffer = bufnr, remap = false}
 
@@ -33,6 +49,7 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>err", function() vim.lsp.buf.references() end, opts)
 	vim.keymap.set("n", "<leader>ern", function() vim.lsp.buf.rename() end, opts)
 	-- vim.keymap.set("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+    lsp_format_on_save(bufnr)
 end)
 
 lsp.setup()
