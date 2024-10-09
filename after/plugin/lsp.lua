@@ -49,7 +49,9 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>err", function() vim.lsp.buf.references() end, opts)
 	vim.keymap.set("n", "<leader>ern", function() vim.lsp.buf.rename() end, opts)
 	-- vim.keymap.set("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-    lsp_format_on_save(bufnr)
+    if(client.name == "clangd") then 
+        lsp_format_on_save(bufnr) 
+    end
 end)
 
 lsp.setup()
@@ -64,8 +66,15 @@ vim.diagnostic.config({
     -- float = true,
 })
 
+local lspconfig = require('lspconfig')
+
+-- Disable clangd automatic header includes
+lspconfig.clangd.setup({
+    cmd = {"clangd", "--header-insertion=never"},
+})
+
 -- Recompile LaTeX on save
-require('lspconfig').texlab.setup{
+lspconfig.texlab.setup{
     cmd = {"texlab"},
     filetypes = {"tex", "bib"},
     settings = {
