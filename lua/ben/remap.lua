@@ -1,5 +1,4 @@
 vim.g.mapleader = " "
--- TODO(ben): 
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
@@ -58,7 +57,6 @@ else
     vim.keymap.set("n", "<leader>m", 'O// TODO(ben):<Esc>A<Space>')
 end
 
-
 -- Terminal in nvim
 if vim.fn.has('linux') == 1 then
     vim.keymap.set("n", "<leader>t", function ()
@@ -70,6 +68,7 @@ else
     end)
 end
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+
 -- Run build command
 vim.keymap.set({'n', 'v'}, "<leader>b",function ()
     local enter_code = vim.api.nvim_replace_termcodes("<CR>", false, false, true)
