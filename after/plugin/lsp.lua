@@ -21,22 +21,18 @@ lsp.set_preferences({
 })
 
 -- clang-format on save
-local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
-local lsp_format_on_save = function(bufnr)
-    vim.api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
-    vim.api.nvim_create_autocmd('BufWritePre', {
-        group = augroup,
-        buffer = bufnr,
-        callback = function()
-            vim.lsp.buf.format()
-            filter = function(client)
-                return client.name == "clangd"
-            end
-        end,
-    })
-end
+lsp.format_on_save({
+    format_opts = {
+        async = false,
+        timeout_ms = 10000,
+    },
+    servers = {
+        ['clangd'] = {'c', 'cpp'},
+    }
+})
 
-lsp.on_attach(function(client, bufnr)
+
+attach_func = function(client, bufnr)
 	local opts = {buffer = bufnr, remap = false}
 
 	vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
@@ -49,10 +45,9 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>err", function() vim.lsp.buf.references() end, opts)
 	vim.keymap.set("n", "<leader>ern", function() vim.lsp.buf.rename() end, opts)
 	-- vim.keymap.set("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-    if(client.name == "clangd") then 
-        lsp_format_on_save(bufnr) 
-    end
-end)
+end
+
+lsp.on_attach(attach_func)
 
 lsp.setup()
 
@@ -66,11 +61,13 @@ vim.diagnostic.config({
     -- float = true,
 })
 
+
 local lspconfig = require('lspconfig')
 
 -- Disable clangd automatic header includes
 lspconfig.clangd.setup({
     cmd = {"clangd", "--header-insertion=never"},
+    on_attach = attach_func,
 })
 
 -- Recompile LaTeX on save
@@ -93,4 +90,3 @@ lspconfig.texlab.setup{
         }
     }
 }
-
