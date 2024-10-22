@@ -70,13 +70,18 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
 })
 
--- Set tabs to 3 spaces in C files for GE
+-- Set correct spacing for GE files
 vim.api.nvim_create_autocmd("BufEnter", {
    callback = function()
       if vim.fn.has('mac') == 1 and (vim.bo.filetype == 'c' or vim.bo.filetype == 'cpp') then
           vim.opt.tabstop = 3
           vim.opt.softtabstop = 3
           vim.opt.shiftwidth = 3
+       end
+      if vim.fn.has('mac') == 1 and vim.bo.filetype == 'lua' then
+          vim.opt.tabstop = 2
+          vim.opt.softtabstop = 2
+          vim.opt.shiftwidth = 2
        end
     end
  })
