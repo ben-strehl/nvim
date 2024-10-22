@@ -58,7 +58,7 @@ else
 end
 
 -- Terminal in nvim
-if vim.fn.has('linux') == 1 then
+if vim.fn.has('linux') == 1 or vim.fn.has('mac') == 1 then
     vim.keymap.set("n", "<leader>t", function ()
        vim.cmd("vsplit term://bash")
     end)
@@ -69,27 +69,29 @@ else
 end
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
--- Run build command
-vim.keymap.set({'n', 'v'}, "<leader>b",function ()
-    local enter_code = vim.api.nvim_replace_termcodes("<CR>", false, false, true)
-    local buf = vim.api.nvim_create_buf(false, false) + 1
-    vim.cmd("belowright split")
-    vim.cmd("resize 20")
-    vim.cmd("terminal")
-    vim.cmd("setlocal nonumber norelativenumber nobuflisted")
-    vim.api.nvim_buf_set_keymap(
-        buf,
-        "t", "<C-T>", "<cmd>close<CR>",
-        { noremap = true, silent = true }
-    )
-    vim.cmd("bprev")
-    vim.cmd.b(buf)
-    vim.cmd("startinsert!")
-    if vim.fn.has('linux') == 1 then
-        vim.api.nvim_feedkeys("./build.sh"
-            .. enter_code, 't', true)
-    else
-        vim.api.nvim_feedkeys("build"
-            .. enter_code, 't', true)
-    end
-end)
+-- Run build command, disable on mac
+if vim.fn.has('mac') == 1 then
+    vim.keymap.set({'n', 'v'}, "<leader>b",function ()
+        local enter_code = vim.api.nvim_replace_termcodes("<CR>", false, false, true)
+        local buf = vim.api.nvim_create_buf(false, false) + 1
+        vim.cmd("belowright split")
+        vim.cmd("resize 20")
+        vim.cmd("terminal")
+        vim.cmd("setlocal nonumber norelativenumber nobuflisted")
+        vim.api.nvim_buf_set_keymap(
+            buf,
+            "t", "<C-T>", "<cmd>close<CR>",
+            { noremap = true, silent = true }
+        )
+        vim.cmd("bprev")
+        vim.cmd.b(buf)
+        vim.cmd("startinsert!")
+        if vim.fn.has('linux') == 1 then
+            vim.api.nvim_feedkeys("./build.sh"
+                .. enter_code, 't', true)
+        else
+            vim.api.nvim_feedkeys("build"
+                .. enter_code, 't', true)
+        end
+    end)
+end

@@ -31,6 +31,8 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
+vim.opt.autowrite = true
+
 -- Split to the right
 vim.opt.splitright = true
 
