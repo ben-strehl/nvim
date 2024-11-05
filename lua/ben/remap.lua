@@ -69,8 +69,7 @@ else
 end
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
--- Run build command, disable on mac
-if vim.fn.has('mac') == 1 then
+if vim.fn.has('mac') ~= 1 then
     vim.keymap.set({'n', 'v'}, "<leader>b",function ()
         local enter_code = vim.api.nvim_replace_termcodes("<CR>", false, false, true)
         local buf = vim.api.nvim_create_buf(false, false) + 1
