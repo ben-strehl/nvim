@@ -1,3 +1,7 @@
+if vim.fn.has("gui_running") then
+    vim.cmd('set guifont=Consolas:h10')
+end
+
 vim.opt.relativenumber = true
 vim.opt.numberwidth = 1
 
