@@ -20,19 +20,21 @@ lsp.set_preferences({
 	sign_icons = {}
 })
 
--- clang-format on save
-lsp.format_on_save({
-    format_opts = {
-        async = false,
-        timeout_ms = 10000,
-    },
-    servers = {
-        ['clangd'] = {'c', 'cpp'},
-    }
-})
+if vim.fn.has('mac') == 1 then
+    -- clang-format on save
+    lsp.format_on_save({
+        format_opts = {
+            async = false,
+            timeout_ms = 10000,
+        },
+        servers = {
+            ['clangd'] = {'c', 'cpp'},
+            ['lua_ls'] = {'lua'},
+        }
+    })
+end
 
-
-attach_func = function(client, bufnr)
+local attach_func = function(client, bufnr)
 	local opts = {buffer = bufnr, remap = false}
 
 	vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
