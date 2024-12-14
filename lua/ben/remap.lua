@@ -50,47 +50,47 @@ vim.keymap.set("n", "<leader>+", "<C-w>+")
 
 -- Quick notes and todos
 if vim.bo.filetype == "lua" then
-    vim.keymap.set("n", "<leader>n", "O-- NOTE(ben):<Esc>A<Space>")
-    vim.keymap.set("n", "<leader>m", "O-- TODO(ben):<Esc>A<Space>")
+  vim.keymap.set("n", "<leader>n", "O-- NOTE(ben):<Esc>A<Space>")
+  vim.keymap.set("n", "<leader>m", "O-- TODO(ben):<Esc>A<Space>")
 else
-    vim.keymap.set("n", "<leader>n", 'O// NOTE(ben):<Esc>A<Space>')
-    vim.keymap.set("n", "<leader>m", 'O// TODO(ben):<Esc>A<Space>')
+  vim.keymap.set("n", "<leader>n", 'O// NOTE(ben):<Esc>A<Space>')
+  vim.keymap.set("n", "<leader>m", 'O// TODO(ben):<Esc>A<Space>')
 end
 
 -- Terminal in nvim
 if vim.fn.has('linux') == 1 or vim.fn.has('mac') == 1 then
-    vim.keymap.set("n", "<leader>t", function ()
-       vim.cmd("vsplit term://bash")
-    end)
+  vim.keymap.set("n", "<leader>t", function()
+    vim.cmd("vsplit term://bash")
+  end)
 else
-    vim.keymap.set("n", "<leader>t", function ()
-       vim.cmd("vsplit term://cmd") 
-    end)
+  vim.keymap.set("n", "<leader>t", function()
+    vim.cmd("vsplit term://cmd")
+  end)
 end
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
 if vim.fn.has('mac') ~= 1 then
-    vim.keymap.set({'n', 'v'}, "<leader>b",function ()
-        local enter_code = vim.api.nvim_replace_termcodes("<CR>", false, false, true)
-        local buf = vim.api.nvim_create_buf(false, false) + 1
-        vim.cmd("belowright split")
-        vim.cmd("resize 20")
-        vim.cmd("terminal")
-        vim.cmd("setlocal nonumber norelativenumber nobuflisted")
-        vim.api.nvim_buf_set_keymap(
-            buf,
-            "t", "<C-T>", "<cmd>close<CR>",
-            { noremap = true, silent = true }
-        )
-        vim.cmd("bprev")
-        vim.cmd.b(buf)
-        vim.cmd("startinsert!")
-        if vim.fn.has('linux') == 1 then
-            vim.api.nvim_feedkeys("./build.sh"
-                .. enter_code, 't', true)
-        else
-            vim.api.nvim_feedkeys("build"
-                .. enter_code, 't', true)
-        end
-    end)
+  vim.keymap.set({ 'n', 'v' }, "<leader>b", function()
+    local enter_code = vim.api.nvim_replace_termcodes("<CR>", false, false, true)
+    local buf = vim.api.nvim_create_buf(false, false) + 1
+    vim.cmd("belowright split")
+    vim.cmd("resize 20")
+    vim.cmd("terminal")
+    vim.cmd("setlocal nonumber norelativenumber nobuflisted")
+    vim.api.nvim_buf_set_keymap(
+      buf,
+      "t", "<C-T>", "<cmd>close<CR>",
+      { noremap = true, silent = true }
+    )
+    vim.cmd("bprev")
+    vim.cmd.b(buf)
+    vim.cmd("startinsert!")
+    if vim.fn.has('linux') == 1 then
+      vim.api.nvim_feedkeys("./build.sh"
+        .. enter_code, 't', true)
+    else
+      vim.api.nvim_feedkeys("build"
+        .. enter_code, 't', true)
+    end
+  end)
 end
