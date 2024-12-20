@@ -94,3 +94,10 @@ if vim.fn.has('mac') ~= 1 then
     end
   end)
 end
+
+-- Scratch file
+vim.keymap.set("n", "<leader>S", function()
+  vim.cmd("vsplit")
+  local scratch_path = os.getenv("HOME") .. "/scratch.txt"
+  vim.cmd("e " .. scratch_path)
+end)
