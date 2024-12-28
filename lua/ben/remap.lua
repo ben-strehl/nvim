@@ -98,6 +98,11 @@ end
 -- Scratch file
 vim.keymap.set("n", "<leader>S", function()
   vim.cmd("vsplit")
-  local scratch_path = os.getenv("HOME") .. "/scratch.txt"
+  local scratch_path = ""
+  if vim.fn.has('linux') == 1 or vim.fn.has('mac') == 1 then
+    scratch_path = os.getenv("HOME") .. "/scratch.txt"
+  else
+    scratch_path = os.getenv("HOMEPATH") .. "/scratch.txt"
+  end
   vim.cmd("e " .. scratch_path)
 end)
