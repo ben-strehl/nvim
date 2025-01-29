@@ -85,13 +85,8 @@ if vim.fn.has('mac') ~= 1 then
     vim.cmd("bprev")
     vim.cmd.b(buf)
     vim.cmd("startinsert!")
-    if vim.fn.has('linux') == 1 then
-      vim.api.nvim_feedkeys("./build.sh"
-        .. enter_code, 't', true)
-    else
-      vim.api.nvim_feedkeys("build"
-        .. enter_code, 't', true)
-    end
+    vim.api.nvim_feedkeys("make"
+      .. enter_code, 't', true)
   end)
 end
 
