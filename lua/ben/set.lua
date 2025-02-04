@@ -95,6 +95,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
     if vim.bo.filetype == 'make' then
       vim.api.nvim_command('set list')
+    else
+      vim.api.nvim_command('set nolist')
     end
   end
 })
