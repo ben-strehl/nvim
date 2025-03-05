@@ -54,7 +54,7 @@ lsp.setup()
 -- Shows errors in-line
 vim.diagnostic.config({
   virtual_text = true,
-  -- signs = true,
+  signs = false,
   -- update_in_insert = false,
   -- underline = true,
   -- severity_sort = false,
