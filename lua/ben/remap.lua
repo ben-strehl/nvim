@@ -49,13 +49,13 @@ vim.keymap.set("n", "<leader>-", "<C-w>-")
 vim.keymap.set("n", "<leader>+", "<C-w>+")
 
 -- Quick notes and todos
-if vim.bo.filetype == "lua" then
-  vim.keymap.set("n", "<leader>n", "O-- NOTE(ben):<Esc>A<Space>")
-  vim.keymap.set("n", "<leader>m", "O-- TODO(ben):<Esc>A<Space>")
-else
-  vim.keymap.set("n", "<leader>n", 'O// NOTE(ben):<Esc>A<Space>')
-  vim.keymap.set("n", "<leader>m", 'O// TODO(ben):<Esc>A<Space>')
-end
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    local commentString = string.sub(vim.bo.commentstring, 0, string.find(vim.bo.commentstring, ' '))
+    vim.keymap.set("n", "<leader>n", "O" .. commentString .. "NOTE(ben):<Esc>A<Space>")
+    vim.keymap.set("n", "<leader>m", "O" .. commentString .. "TODO(ben):<Esc>A<Space>")
+  end
+})
 
 -- Terminal in nvim
 if vim.fn.has('linux') == 1 or vim.fn.has('mac') == 1 then
