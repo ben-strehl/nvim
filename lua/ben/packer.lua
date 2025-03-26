@@ -11,11 +11,7 @@ return require('packer').startup(function(use)
 
   use("sainnhe/gruvbox-material")
 
-  use("nvim-treesitter/playground")
-
   use("theprimeagen/harpoon")
-
-  use("mbbill/undotree")
 
   use("tpope/vim-fugitive")
 
