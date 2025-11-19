@@ -1,3 +1,8 @@
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = { "clangd", "lua_ls" }
+})
+
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
@@ -18,22 +23,13 @@ cmp.setup({
     ['<C-y>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' }, -- For luasnip users.
-  }, {
-    { name = 'buffer' },
-  })
+      { name = 'nvim_lsp' },
+      { name = 'luasnip' }, -- For luasnip users.
+    },
+    {
+      { name = 'buffer' },
+    })
 })
-
--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline({ '/', '?' }, {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
-})
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local on_attach = function(client, bufnr)
   local opts = { buffer = bufnr, remap = false }
@@ -61,19 +57,18 @@ local on_attach = function(client, bufnr)
   end
 end
 
-vim.lsp.config('clangd', {
-  cmd = { "clangd", "--header-insertion=never" },
-  filetypes = { 'c', 'cpp' },
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+vim.lsp.config('*', {
   capabilities = capabilities,
   on_attach = on_attach,
 })
-vim.lsp.enable('clangd')
+
+vim.lsp.config('clangd', {
+  cmd = { "clangd", "--header-insertion=never" },
+})
 
 vim.lsp.config('lua_ls', {
-  cmd = { 'lua-language-server' },
-  filetypes = { 'lua' },
-  capabilities = capabilities,
-  on_attach = on_attach,
   settings = {
     Lua = {
       diagnostics = {
@@ -89,7 +84,6 @@ vim.lsp.config('lua_ls', {
     }
   }
 })
-vim.lsp.enable('lua_ls')
 
 -- Shows errors in-line
 vim.diagnostic.config({

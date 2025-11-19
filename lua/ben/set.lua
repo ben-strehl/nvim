@@ -82,7 +82,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
       vim.opt.softtabstop = 3
       vim.opt.shiftwidth = 3
     end
-    if vim.bo.filetype == 'lua' then
+    if vim.bo.filetype == 'lua' or vim.bo.filetype == 'js' or vim.bo.filetype == 'html' then
       vim.opt.tabstop = 2
       vim.opt.softtabstop = 2
       vim.opt.shiftwidth = 2
