@@ -13,8 +13,6 @@ return require('packer').startup(function(use)
 
   use('sainnhe/gruvbox-material')
 
-  use('theprimeagen/harpoon')
-
   use('tpope/vim-fugitive')
 
   use('tpope/vim-commentary')
