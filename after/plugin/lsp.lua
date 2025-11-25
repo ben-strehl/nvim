@@ -33,37 +33,42 @@ cmp.setup({
     })
 })
 
-local on_attach = function(client, bufnr)
-  local opts = { buffer = bufnr, remap = false }
-
-  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-  vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-  vim.keymap.set("n", "<leader>ews", function() vim.lsp.buf.workspace_symbol() end, opts)
-  -- vim.keymap.set("n", "<leader>d", function() vim.diagnostic.open_float() end, opts)
-  vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = 1 }) end, opts)
-  vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = -1 }) end, opts)
-  vim.keymap.set("n", "<leader>eca", function() vim.lsp.buf.code_action() end, opts)
-  vim.keymap.set("n", "<leader>err", function() vim.lsp.buf.references() end, opts)
-  vim.keymap.set("n", "<leader>ern", function() vim.lsp.buf.rename() end, opts)
-  -- vim.keymap.set("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-
-  if not client:supports_method('textDocument/willSaveWaitUntil')
-      and client:supports_method('textDocument/formatting') then
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      group = vim.api.nvim_create_augroup('my.lsp', { clear = false }),
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format({ bufnr = bufnr, id = client.id, timeout_ms = 1000 })
-      end,
-    })
-  end
-end
-
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 vim.lsp.config('*', {
-  capabilities = capabilities,
-  on_attach = on_attach,
+  capabilities = capabilities
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(args)
+    local bufnr = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+    local opts = { buffer = bufnr, remap = false }
+
+    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+    vim.keymap.set("n", "<leader>ews", function() vim.lsp.buf.workspace_symbol() end, opts)
+    -- vim.keymap.set("n", "<leader>d", function() vim.diagnostic.open_float() end, opts)
+    vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = 1 }) end, opts)
+    vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = -1 }) end, opts)
+    vim.keymap.set("n", "<leader>eca", function() vim.lsp.buf.code_action() end, opts)
+    vim.keymap.set("n", "<leader>err", function() vim.lsp.buf.references() end, opts)
+    vim.keymap.set("n", "<leader>ern", function() vim.lsp.buf.rename() end, opts)
+    -- vim.keymap.set("n", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+
+    if not client:supports_method('textDocument/willSaveWaitUntil')
+        and client:supports_method('textDocument/formatting') then
+      vim.api.nvim_create_autocmd('BufWritePre', {
+        group = vim.api.nvim_create_augroup('my.lsp', { clear = false }),
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr, id = client.id, timeout_ms = 1000 })
+        end,
+      })
+    end
+  end,
 })
 
 vim.lsp.config('clangd', {
