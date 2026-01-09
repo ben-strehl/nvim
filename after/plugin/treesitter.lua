@@ -1,6 +1,6 @@
-require 'nvim-treesitter.configs'.setup {
+require("nvim-treesitter").setup({
   -- List of parser names
-  ensure_installed = { "c", "cpp", "lua", "vim", "query", "rust" },
+  ensure_installed = { "c", "cpp", "lua", "vim", "query" },
 
   --Install parser synchronously
   sync_install = false,
@@ -14,4 +14,4 @@ require 'nvim-treesitter.configs'.setup {
 
     additional_vim_regex_highlighting = true,
   },
-}
+})
