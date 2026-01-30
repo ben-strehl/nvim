@@ -102,3 +102,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
   end
 })
+
+-- Text wrapping in markdown files
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    if vim.bo.filetype == 'markdown' then
+      vim.api.nvim_command('set wrap')
+    else
+      vim.api.nvim_command('set nowrap')
+    end
+  end
+})
