@@ -108,6 +108,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
     if vim.bo.filetype == 'markdown' then
       vim.api.nvim_command('set wrap')
+      vim.api.nvim_command('set lbr') -- Don't break in the middle of a word
     else
       vim.api.nvim_command('set nowrap')
     end
