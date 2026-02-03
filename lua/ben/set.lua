@@ -35,8 +35,9 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
--- Split to the right
 vim.opt.splitright = true
+
+vim.opt.exrc = true
 
 -- Remove line numbers from terminal buffs
 vim.api.nvim_create_autocmd("TermOpen", {

@@ -1,4 +1,6 @@
-require("nvim-treesitter").setup({
+local treesitter = require("nvim-treesitter")
+
+treesitter.setup({
   -- List of parser names
   ensure_installed = { "c", "cpp", "lua", "vim", "query" },
 
@@ -14,4 +16,8 @@ require("nvim-treesitter").setup({
 
     additional_vim_regex_highlighting = true,
   },
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function() pcall(vim.treesitter.start) end,
 })

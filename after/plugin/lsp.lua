@@ -89,6 +89,8 @@ vim.lsp.config("lua_ls", {
   },
 })
 
+vim.lsp.enable("dartls")
+
 -- Shows errors in-line
 vim.diagnostic.config({
   virtual_text = true,
