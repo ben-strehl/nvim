@@ -6,6 +6,10 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv")
 
+-- Change indentation without leaving visual mode
+vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("v", "<", "<gv")
+
 -- Maintaining cursor position when jumping around
 vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
@@ -29,7 +33,7 @@ vim.keymap.set("v", "<leader>d", "\"_d")
 -- Reload buffers (for when we do something like cargo fmt)
 vim.keymap.set("n", "<leader>r", ":bufdo :e<CR>")
 
--- Apparently Q sucks and we need ot unbind it
+-- Apparently Q sucks and we need to unbind it
 vim.keymap.set("n", "Q", "<nop>")
 
 -- Quicker window controls
