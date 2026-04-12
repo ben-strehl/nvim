@@ -2,7 +2,7 @@ vim.lsp.set_log_level("off")
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "clangd", "lua_ls" },
+  ensure_installed = { "clangd", "lua_ls", "ols" },
 })
 
 local cmp = require("cmp")
@@ -89,7 +89,13 @@ vim.lsp.config("lua_ls", {
   },
 })
 
-vim.lsp.enable("dartls")
+vim.lsp.config("ols", {
+  init_options = {
+    enable_semantic_tokens = true,
+    enable_checker_workspace_diagnostics = true,
+    enable_auto_import = true,
+  }
+})
 
 -- Shows errors in-line
 vim.diagnostic.config({
