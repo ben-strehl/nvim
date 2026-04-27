@@ -34,7 +34,7 @@ return require('packer').startup(function(use)
   use('L3MON4D3/LuaSnip')             -- Required
   use('rafamadriz/friendly-snippets') -- Optional
 
-  use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
+  use('romus204/tree-sitter-manager.nvim')
 
   use {
     'nvim-lualine/lualine.nvim',
