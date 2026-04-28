@@ -1,8 +1,14 @@
 require('tree-sitter-manager').setup({
   ensure_installed = { 'c', 'cpp', 'lua', 'vimdoc', 'vim' },
-  highlight = true
 })
 
+
 vim.api.nvim_create_autocmd("FileType", {
-  callback = function() pcall(vim.treesitter.start) end,
+  callback = function()
+    if vim.treesitter.language.add(vim.bo.filetype) then
+      vim.treesitter.start()
+      -- Enables regex highlighting
+      vim.bo.syntax = 'ON'
+    end
+  end,
 })
