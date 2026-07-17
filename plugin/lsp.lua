@@ -1,3 +1,20 @@
+vim.pack.add({
+  'https://github.com/neovim/nvim-lspconfig',             -- Required
+  'https://github.com/williamboman/mason.nvim',           -- Optional
+  'https://github.com/williamboman/mason-lspconfig.nvim', -- Optional
+  -- Autocompletion
+  'https://github.com/hrsh7th/nvim-cmp',                  -- Required
+  'https://github.com/hrsh7th/cmp-nvim-lsp',              -- Required
+  'https://github.com/hrsh7th/cmp-buffer',                -- Optional
+  'https://github.com/hrsh7th/cmp-path',                  -- Optional
+  'https://github.com/saadparwaiz1/cmp_luasnip',          -- Optional
+  'https://github.com/hrsh7th/cmp-nvim-lua',              -- Optional
+
+  -- Snippets
+  'https://github.com/L3MON4D3/LuaSnip',             -- Required
+  'https://github.com/rafamadriz/friendly-snippets', -- Optional
+})
+
 vim.lsp.log.set_level("off")
 
 require("mason").setup()

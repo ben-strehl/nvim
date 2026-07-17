@@ -1,3 +1,5 @@
+vim.pack.add({ 'https://github.com/sainnhe/gruvbox-material' })
+
 vim.o.background = "dark"
 vim.g.gruvbox_material_foreground = "original"
 vim.g.gruvbox_material_disable_italic_comment = "1"
